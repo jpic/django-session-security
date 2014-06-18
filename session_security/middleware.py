@@ -23,6 +23,14 @@ class SessionSecurityMiddleware(object):
     user if appropriate.
     """
 
+    def is_session_expired(self, request, current_time, last_activity_time):
+        """ Decide is session expired or not. If you want to extend this
+        middleware's logic you can subclass from it and implement this method.
+        """
+        last_activity_delta = current_time - last_activity_time
+        max_expire_delta = timedelta(seconds=get_expire_after(request))
+        return last_activity_delta >= max_expire_delta
+
     def process_request(self, request):
         """ Update last activity time or logout. """
         if not request.user.is_authenticated():
@@ -31,9 +39,9 @@ class SessionSecurityMiddleware(object):
         now = datetime.now()
         self.update_last_activity(request, now)
 
-        delta = now - get_last_activity(request.session)
+        last_activity = get_last_activity(request.session)
 
-        if delta >= timedelta(seconds=get_expire_after(request)):
+        if self.is_session_expired(request, now, last_activity):
             logout(request)
         elif request.path not in PASSIVE_URLS:
             set_last_activity(request.session, now)
