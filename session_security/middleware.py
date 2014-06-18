@@ -8,11 +8,8 @@ To install this middleware, add to your ``settings.MIDDLEWARE_CLASSES``::
 
 Make sure that it is placed **after** authentication middlewares.
 """
-
-import time
 from datetime import datetime, timedelta
 
-from django import http
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 
