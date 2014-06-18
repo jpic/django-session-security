@@ -16,8 +16,8 @@ from django import http
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 
-from .utils import get_last_activity, set_last_activity
-from .settings import PASSIVE_URLS, get_expire_after
+from .utils import get_last_activity, set_last_activity, get_expire_after
+from .settings import PASSIVE_URLS
 
 
 class SessionSecurityMiddleware(object):

@@ -1,7 +1,7 @@
 from django import template
 
-from session_security.settings import (
-    get_expire_after, get_warn_after)
+from session_security.utils import get_expire_after, get_warn_after
+
 
 register = template.Library()
 
