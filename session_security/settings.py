@@ -56,7 +56,7 @@ WARN_AFTER = getattr(
 
 PASSIVE_URLS = getattr(settings, 'SESSION_SECURITY_PASSIVE_URLS', [])
 PASSIVE_URLS += [
-    urlresolvers.reverse('session_security_ping'),
+    urlresolvers.reverse_lazy('session_security_ping'),
 ]
 
 if not getattr(settings, 'SESSION_EXPIRE_AT_BROWSER_CLOSE', False):
